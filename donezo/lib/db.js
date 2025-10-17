@@ -9,6 +9,7 @@ function formatTaskDates(task) {
   if (createdon === null) {
     // TODO: Throw error
   }
+  // TODO: Format date differently
   return {
     ...task,
     duedate,
@@ -40,14 +41,12 @@ export async function getTasks() {
 /*** GET SINGLE TASK ***/
 
 export async function getTask(taskId) {
-  console.log('it begins');
-  console.log(taskId);
   const taskRef = doc(tasksCollection, taskId);
   const documentSnapshot = await getDoc(taskRef);
 
   if (!documentSnapshot.exists()) {
-    // TODO: Throw an error
-    console.log('error');
+    // throw new Error("Error retrieving task details: Task not found.");
+    return null;
   }
 
   const newTask = {
