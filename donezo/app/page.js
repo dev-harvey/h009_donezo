@@ -1,4 +1,5 @@
-import TaskItem from "@/components/TaskItem";
+import Sidebar from "@/components/Sidebar";
+import TasksList from "@/components/TasksList";
 import { getTasks } from "@/lib/db";
 import { Box, Grid, Container, Stack, Typography } from "@mui/material";
 
@@ -16,14 +17,10 @@ export default async function Home() {
         spacing={2}
       >
         <Grid size={3}>
-          {/* TODO: Create Sidebar component */}
-          <p>Sidebar</p>
+          <Sidebar />
         </Grid>
         <Grid size={9}>
-          {/* TODO: Split into TasksList component */}
-          <Stack spacing={0.5}>
-            {tasks.map((task) => <TaskItem key={task.id} task={task} />)}
-          </Stack>
+          <TasksList tasks={tasks} />
         </Grid>
       </Grid>
     </Container>
