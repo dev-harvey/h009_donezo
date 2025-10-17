@@ -7,7 +7,7 @@ function formatTaskDates(task) {
   const createdon = task.createdon?.toDate() || null;
   const duedate = task.duedate?.toDate() || null;
   if (createdon === null) {
-    // TODO: Throw error
+    throw new Error("Error retrieving task details: Missing 'createdon' field.");
   }
   // TODO: Format date differently
   return {
@@ -33,8 +33,6 @@ export async function getTasks() {
     newTask = formatTaskDates(newTask);
     tasks.push(newTask);
   });
-
-  console.log("Fetched tasks:", tasks);
   return tasks;
 }
 
@@ -45,7 +43,6 @@ export async function getTask(taskId) {
   const documentSnapshot = await getDoc(taskRef);
 
   if (!documentSnapshot.exists()) {
-    // throw new Error("Error retrieving task details: Task not found.");
     return null;
   }
 
@@ -53,12 +50,11 @@ export async function getTask(taskId) {
     id: documentSnapshot.id,
     ...documentSnapshot.data(),
   };
-  console.log(newTask);
   return formatTaskDates(newTask);
 }
 
 export async function addTask(task) {
-  // TODO: see if this needs a try catch for errors
+  // TODO: handle errors
   const docRef = await addDoc(tasksCollection, {
     complete: false,
     title: task.title,

@@ -7,7 +7,6 @@ export default async function TaskDetailsPage({ params }) {
   const taskDetails = await getTask(params.taskSlug);
 
   if (!taskDetails) {
-    // throw new Error("Error retrieving task details: Task not found.");
     notFound();
   }
   
