@@ -23,7 +23,8 @@ export default async function Home() {
           {/* TODO: Add settings bar for sorting and adding tasks. Maybe inside TasksList? */}
           <Button variant="contained" sx={{mb: 2}} href="/tasks/add">Add task</Button>
           <TasksList tasks={tasks} />
-          <TaskSnackbar />
+          <TaskSnackbar paramName="task_added" message="Task added successfully!" />
+          <TaskSnackbar paramName="task_deleted" message="Task deleted successfully!" />
         </Grid>
       </Grid>
     </Container>

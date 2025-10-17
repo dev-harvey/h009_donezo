@@ -36,8 +36,6 @@ export default function AddTaskForm() {
 
       if (!response.success) {
         setErrors(response.errors);
-      } else {
-        redirect("/?task_added=true");
       }
     });
   }

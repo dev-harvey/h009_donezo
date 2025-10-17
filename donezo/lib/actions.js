@@ -3,6 +3,7 @@
 import { db } from "@/firebase.config";
 import { collection, addDoc, doc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 const tasksCollection = collection(db, "tasks");
 
@@ -38,21 +39,27 @@ export async function addTaskAction(formData) {
     });
 
     revalidatePath("/");
-
-    return {
-      success: true,
-      errors: null,
-      docId: docRef.id,
-    };
   } catch (error) {
-    console.log(error);
     return {
       success: false,
       errors: ["Server error, failed to add task. Please try again later."],
     };
   }
+  redirect("/?task_added=true");
+}
+
+export async function deleteTaskAction(taskId) {
+  try {
+    const taskRef = doc(tasksCollection, taskId);
+    await deleteDoc(taskRef);
+  } catch (error) {
+    return {
+      success: false,
+      error: "Server error, failed to delete task. Please try again later.",
+    };
+  }
+
+  redirect("/?task_deleted=true");
 }
 
 // TODO: edit task - mark completed use this? Or different function?
-
-// TODO: delete task

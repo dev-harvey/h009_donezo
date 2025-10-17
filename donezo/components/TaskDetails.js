@@ -1,5 +1,6 @@
 import { Box, Checkbox, Stack, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
+import DeleteTaskButton from "./DeleteTaskButton";
 
 export default function TaskDetails({ taskDetails }) {
   return (
@@ -20,12 +21,7 @@ export default function TaskDetails({ taskDetails }) {
         direction="row"
       >
         <Button variant="contained">Edit task</Button>
-        <Button
-          variant="contained"
-          color="error"
-        >
-          Delete task
-        </Button>
+        <DeleteTaskButton taskId={taskDetails.id} />
       </Stack>
     </Box>
   );

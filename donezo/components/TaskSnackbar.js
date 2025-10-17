@@ -4,14 +4,16 @@ import { Snackbar } from "@mui/material";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-export default function TaskSnackbar() {
+export default function TaskSnackbar({ paramName, message }) {
   const searchParams = useSearchParams();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   useEffect(() => {
-    if (searchParams.get("task_added") === "true") {
+    if (searchParams.get(paramName) === "true") {
       setSnackbarOpen(true);
-      window.history.replaceState({}, '', '/');
+      const url = new URL(window.location);
+      url.searchParams.delete(paramName);
+      window.history.replaceState({}, '', url);
     }
   }, [searchParams]);
 
@@ -21,7 +23,7 @@ export default function TaskSnackbar() {
       onClose={() => setSnackbarOpen(false)}
       anchorOrigin={{ vertical: "top", horizontal: "center" }}
       autoHideDuration={3000}
-      message="Task added successfully!"
+      message={message}
     />
   );
 }
