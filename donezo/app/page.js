@@ -1,7 +1,8 @@
 import Sidebar from "@/components/Sidebar";
 import TasksList from "@/components/TasksList";
+import TaskSnackbar from "@/components/TaskSnackbar";
 import { getTasks } from "@/lib/db";
-import { Box, Grid, Container, Stack, Typography } from "@mui/material";
+import { Grid, Container, Button } from "@mui/material";
 
 export default async function Home() {
   const tasks = await getTasks();
@@ -11,7 +12,6 @@ export default async function Home() {
       fixed
       sx={{ py: 2 }}
     >
-      {/* TODO: Add settings bar for sorting */}
       <Grid
         container
         spacing={2}
@@ -20,7 +20,10 @@ export default async function Home() {
           <Sidebar />
         </Grid>
         <Grid size={9}>
+          {/* TODO: Add settings bar for sorting and adding tasks. Maybe inside TasksList? */}
+          <Button variant="contained" sx={{mb: 2}} href="/tasks/add">Add task</Button>
           <TasksList tasks={tasks} />
+          <TaskSnackbar />
         </Grid>
       </Grid>
     </Container>

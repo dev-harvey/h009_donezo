@@ -1,5 +1,5 @@
 import { db } from "@/firebase.config";
-import { collection, addDoc, getDoc, getDocs, doc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
+import { collection, getDoc, getDocs, doc, serverTimestamp } from "firebase/firestore";
 
 const tasksCollection = collection(db, "tasks");
 
@@ -52,20 +52,3 @@ export async function getTask(taskId) {
   };
   return formatTaskDates(newTask);
 }
-
-export async function addTask(task) {
-  // TODO: handle errors
-  const docRef = await addDoc(tasksCollection, {
-    complete: false,
-    title: task.title,
-    description: task.description,
-    createdon: serverTimestamp(),
-    duedate: task.duedate,
-  });
-  console.log("Todo added with ID:", docRef.id);
-  return docRef.id;
-}
-
-// TODO: edit task - mark completed use this? Or different function?
-
-// TODO: delete task
