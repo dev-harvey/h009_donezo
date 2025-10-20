@@ -7,7 +7,7 @@ import dayjs from "dayjs";
 import { addTaskAction } from "@/lib/actions";
 import { useState, useTransition } from "react";
 
-import { redirect } from "next/navigation";
+import { DATETIME_FORMAT } from "@/lib/constants";
 
 export default function AddTaskForm() {
   const [title, setTitle] = useState("");
@@ -43,7 +43,15 @@ export default function AddTaskForm() {
   return (
     <form onSubmit={handleSubmit}>
       <Stack spacing={2}>
-        {errors && errors.map((message) => <Alert key={message} severity="error">{message}</Alert>)}
+        {errors &&
+          errors.map((message) => (
+            <Alert
+              key={message}
+              severity="error"
+            >
+              {message}
+            </Alert>
+          ))}
         <TextField
           name="title"
           label="Title"
@@ -66,6 +74,8 @@ export default function AddTaskForm() {
         <DateTimePicker
           label="Due Date (Optional)"
           minDate={dayjs()}
+          format={DATETIME_FORMAT}
+          ampm={false}
           value={duedate}
           onChange={(newValue) => setDuedate(newValue)}
           disabled={isPending}

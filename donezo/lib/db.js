@@ -1,6 +1,9 @@
 import { db } from "@/firebase.config";
 import { collection, getDoc, getDocs, doc, serverTimestamp } from "firebase/firestore";
 
+import dayjs from "dayjs";
+import { DATETIME_FORMAT } from "@/lib/constants";
+
 const tasksCollection = collection(db, "tasks");
 
 function formatTaskDates(task) {
@@ -9,13 +12,12 @@ function formatTaskDates(task) {
   if (createdon === null) {
     throw new Error("Error retrieving task details: Missing 'createdon' field.");
   }
-  // TODO: Format date differently
   return {
     ...task,
     duedate,
-    duedateFormatted: duedate?.toLocaleString() || "",
+    duedateFormatted: duedate ? dayjs(duedate).format(DATETIME_FORMAT) : "",
     createdon,
-    createdonFormatted: createdon?.toLocaleString() || "",
+    createdonFormatted: dayjs(createdon).format(DATETIME_FORMAT),
   };
 }
 
