@@ -4,15 +4,25 @@ import { Alert, Button, Stack, TextField } from "@mui/material";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 
-import { addTaskAction } from "@/lib/actions";
+import { addTaskAction, updateTaskAction } from "@/lib/actions";
 import { useState, useTransition } from "react";
 
 import { DATETIME_FORMAT } from "@/lib/constants";
 
-export default function AddTaskForm() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [duedate, setDuedate] = useState(null);
+import { FormControlLabel, Checkbox } from "@mui/material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+
+export default function TaskForm({ initialData }) {
+  const [title, setTitle] = useState(initialData?.title || "");
+  const [description, setDescription] = useState(initialData?.description || "");
+  const [duedate, setDuedate] = useState(() => {
+    if (!initialData?.duedate) return null;
+    const date = initialData.duedate.toDate ? initialData.duedate.toDate() : initialData.duedate;
+    return dayjs(date);
+  });
+
+  const [complete, setComplete] = useState(initialData?.complete || false);
 
   const [errors, setErrors] = useState(null);
 
@@ -31,8 +41,13 @@ export default function AddTaskForm() {
       formData.append("duedate", duedate.toISOString());
     }
 
+    if (initialData) {
+      formData.append("id", initialData.id);
+      formData.append("complete", complete);
+    }
+
     startTransition(async () => {
-      const response = await addTaskAction(formData);
+      const response = await (initialData ? updateTaskAction(formData) : addTaskAction(formData));
 
       if (!response.success) {
         setErrors(response.errors);
@@ -80,14 +95,41 @@ export default function AddTaskForm() {
           onChange={(newValue) => setDuedate(newValue)}
           disabled={isPending}
         />
-        <Button
+        {initialData && (
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={complete}
+                onChange={(e) => setComplete(e.target.checked)}
+                icon={<RadioButtonUncheckedIcon />}
+                checkedIcon={<CheckCircleIcon />}
+                disabled={isPending}
+              />
+            }
+            label="Task complete?"
+          />
+        )}
+        <Stack
+          direction="row"
+          spacing={1}
           sx={{ alignSelf: "flex-end" }}
-          variant="contained"
-          type="submit"
-          disabled={isPending}
         >
-          {isPending ? "Submitting" : "Submit"}
-        </Button>
+          <Button
+            variant="contained"
+            color="error"
+            href={initialData ? `/tasks/${initialData.id}` : "/"}
+            disabled={isPending}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            type="submit"
+            disabled={isPending}
+          >
+            {isPending ? "Submitting" : "Submit"}
+          </Button>
+        </Stack>
       </Stack>
     </form>
   );

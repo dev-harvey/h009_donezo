@@ -1,4 +1,5 @@
 import TaskDetails from "@/components/TaskDetails";
+import TaskSnackbar from "@/components/TaskSnackbar";
 import { getTask } from "@/lib/db";
 import { Container } from "@mui/material";
 import { notFound } from "next/navigation";
@@ -21,6 +22,10 @@ export default async function TaskDetailsPage({ params }) {
       fixed
       sx={{ p: 2 }}
     >
+      <TaskSnackbar
+        paramName="task_updated"
+        message="Task updated successfully!"
+      />
       <TaskDetails taskDetails={taskDetails} />
     </Container>
   );

@@ -52,14 +52,59 @@ export async function deleteTaskAction(taskId) {
   try {
     const taskRef = doc(tasksCollection, taskId);
     await deleteDoc(taskRef);
+    revalidatePath("/");
   } catch (error) {
     return {
       success: false,
       error: "Server error, failed to delete task. Please try again later.",
     };
   }
-
   redirect("/?task_deleted=true");
 }
 
 // TODO: edit task - mark completed use this? Or different function?
+export async function updateTaskAction(formData) {
+  const id = formData.get("id");
+
+  try {
+    const errors = [];
+
+    const title = formData.get("title");
+    const description = formData.get("description");
+    const duedate = formData.get("duedate") ? new Date(formData.get("duedate")) : null;
+    const complete = formData.get("complete") === "true";
+
+    if (!title || title.trim() === "") {
+      errors.push("Title is required");
+    }
+
+    if (duedate !== null && (isNaN(duedate.getTime()) || duedate <= new Date())) {
+      errors.push("Due date is invalid");
+    }
+
+    if (errors.length) {
+      return {
+        success: false,
+        errors,
+      };
+    }
+
+    const taskRef = doc(tasksCollection, id);
+    await updateDoc(taskRef, {
+      title: title,
+      description: description,
+      duedate: duedate,
+      complete: complete,
+    });
+    console.log("Task updated:", id);
+
+    revalidatePath("/");
+    revalidatePath(`/tasks/${id}`);
+  } catch (error) {
+    return {
+      success: false,
+      error: "Server error, failed to update task. Please try again later.",
+    };
+  }
+  redirect(`/tasks/${id}?task_updated=true`);
+}

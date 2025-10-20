@@ -1,4 +1,5 @@
 import ThemeRegistry from "@/components/ThemeRegistry";
+import HeaderToolbar from "@/components/HeaderToolbar";
 
 export const metadata = {
   title: "Donezo",
@@ -17,7 +18,10 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        <ThemeRegistry>{children}</ThemeRegistry>
+        <ThemeRegistry>
+          <HeaderToolbar />
+          {children}
+        </ThemeRegistry>
       </body>
     </html>
   );

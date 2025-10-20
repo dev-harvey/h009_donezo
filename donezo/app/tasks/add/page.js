@@ -1,4 +1,4 @@
-import AddTaskForm from "@/components/AddTaskForm";
+import TaskForm from "@/components/TaskForm";
 import { Container, Typography } from "@mui/material";
 
 export const metadata = {
@@ -13,7 +13,7 @@ export default function AddTaskPage() {
       sx={{ p: 2 }}
     >
       <Typography variant="h1" sx={{ mb: 2 }}>Add new task</Typography>
-      <AddTaskForm />
+      <TaskForm />
     </Container>
   );
 }

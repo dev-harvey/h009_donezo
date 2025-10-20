@@ -1,4 +1,3 @@
-import HeaderToolbar from "@/components/HeaderToolbar";
 import Sidebar from "@/components/Sidebar";
 import TasksList from "@/components/TasksList";
 import TaskSnackbar from "@/components/TaskSnackbar";
@@ -10,7 +9,6 @@ export default async function Home() {
 
   return (
     <>
-      <HeaderToolbar />
       <Container
         fixed
         sx={{ py: 2 }}

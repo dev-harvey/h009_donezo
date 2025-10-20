@@ -1,6 +1,7 @@
 import { Box, Checkbox, Stack, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import DeleteTaskButton from "./DeleteTaskButton";
+import Link from "next/link";
 
 export default function TaskDetails({ taskDetails }) {
   return (
@@ -20,7 +21,7 @@ export default function TaskDetails({ taskDetails }) {
         spacing={1}
         direction="row"
       >
-        <Button variant="contained">Edit task</Button>
+        <Button component={Link} href={`/tasks/${taskDetails.id}/edit`} variant="contained">Edit task</Button>
         <DeleteTaskButton taskId={taskDetails.id} />
       </Stack>
     </Box>
