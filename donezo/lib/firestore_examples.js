@@ -9,92 +9,92 @@ import {
   serverTimestamp 
 } from 'firebase/firestore';
 
-// Reference to the 'todos' collection
-const todosCollection = collection(db, 'todos');
+// Reference to the 'tasks' collection
+const tasksCollection = collection(db, 'tasks');
 
 // ============================================
-// CREATE - Add a new todo
+// CREATE - Add a new task
 // ============================================
-export const addTodo = async (title) => {
+export const addtask = async (title) => {
   try {
-    const docRef = await addDoc(todosCollection, {
+    const docRef = await addDoc(tasksCollection, {
       title: title,
       completed: false,
       createdAt: serverTimestamp() // Firebase server timestamp
     });
-    console.log('Todo added with ID:', docRef.id);
+    console.log('task added with ID:', docRef.id);
     return docRef.id;
   } catch (error) {
-    console.error('Error adding todo:', error);
+    console.error('Error adding task:', error);
     throw error;
   }
 };
 
 // ============================================
-// READ - Get all todos
+// READ - Get all tasks
 // ============================================
-export const getTodos = async () => {
+export const gettasks = async () => {
   try {
-    const querySnapshot = await getDocs(todosCollection);
-    const todos = [];
+    const querySnapshot = await getDocs(tasksCollection);
+    const tasks = [];
     
     querySnapshot.forEach((doc) => {
-      todos.push({
+      tasks.push({
         id: doc.id,
         ...doc.data()
       });
     });
     
-    console.log('Fetched todos:', todos);
-    return todos;
+    console.log('Fetched tasks:', tasks);
+    return tasks;
   } catch (error) {
-    console.error('Error getting todos:', error);
+    console.error('Error getting tasks:', error);
     throw error;
   }
 };
 
 // ============================================
-// UPDATE - Toggle todo completion
+// UPDATE - Toggle task completion
 // ============================================
-export const toggleTodo = async (todoId, currentStatus) => {
+export const toggletask = async (taskId, currentStatus) => {
   try {
-    const todoRef = doc(db, 'todos', todoId);
-    await updateDoc(todoRef, {
+    const taskRef = doc(db, 'tasks', taskId);
+    await updateDoc(taskRef, {
       completed: !currentStatus
     });
-    console.log('Todo updated:', todoId);
+    console.log('task updated:', taskId);
   } catch (error) {
-    console.error('Error updating todo:', error);
+    console.error('Error updating task:', error);
     throw error;
   }
 };
 
 // ============================================
-// UPDATE - Edit todo title
+// UPDATE - Edit task title
 // ============================================
-export const updateTodoTitle = async (todoId, newTitle) => {
+export const updatetaskTitle = async (taskId, newTitle) => {
   try {
-    const todoRef = doc(db, 'todos', todoId);
-    await updateDoc(todoRef, {
+    const taskRef = doc(db, 'tasks', taskId);
+    await updateDoc(taskRef, {
       title: newTitle
     });
-    console.log('Todo title updated:', todoId);
+    console.log('task title updated:', taskId);
   } catch (error) {
-    console.error('Error updating todo title:', error);
+    console.error('Error updating task title:', error);
     throw error;
   }
 };
 
 // ============================================
-// DELETE - Remove a todo
+// DELETE - Remove a task
 // ============================================
-export const deleteTodo = async (todoId) => {
+export const deletetask = async (taskId) => {
   try {
-    const todoRef = doc(db, 'todos', todoId);
-    await deleteDoc(todoRef);
-    console.log('Todo deleted:', todoId);
+    const taskRef = doc(db, 'tasks', taskId);
+    await deleteDoc(taskRef);
+    console.log('task deleted:', taskId);
   } catch (error) {
-    console.error('Error deleting todo:', error);
+    console.error('Error deleting task:', error);
     throw error;
   }
 };
