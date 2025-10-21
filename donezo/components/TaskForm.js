@@ -1,6 +1,10 @@
 "use client";
 
-import { Alert, Button, Stack, TextField } from "@mui/material";
+import { Alert, Button, Checkbox, FormControlLabel, Stack, TextField  } from "@mui/material";
+
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+
 import { DateTimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 
@@ -8,10 +12,6 @@ import { addTaskAction, updateTaskAction } from "@/lib/actions";
 import { useState, useTransition } from "react";
 
 import { DATETIME_FORMAT } from "@/lib/constants";
-
-import { FormControlLabel, Checkbox } from "@mui/material";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 
 export default function TaskForm({ initialData }) {
   const [title, setTitle] = useState(initialData?.title || "");
