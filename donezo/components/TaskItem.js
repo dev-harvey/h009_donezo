@@ -1,4 +1,5 @@
 import { Box, Checkbox, Typography } from "@mui/material";
+import TaskDetailsCompleteCheckbox from "./TaskDetailsCompleteCheckbox";
 
 export default function TaskItem({ task }) {
   return (
@@ -8,15 +9,7 @@ export default function TaskItem({ task }) {
       href={`/tasks/${task.id}`}
     >
       <Typography variant="h6">
-        <Checkbox
-          checked={task.complete}
-          sx={{
-            color: "primary.dark",
-            "&.Mui-checked": {
-              color: "primary.dark",
-            },
-          }}
-        />
+        <TaskDetailsCompleteCheckbox taskId={task.id} initialComplete={task.complete} size="small" color="primary.dark" />
         {task.title}
       </Typography>
       {task.duedate && (

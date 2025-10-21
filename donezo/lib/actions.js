@@ -62,7 +62,6 @@ export async function deleteTaskAction(taskId) {
   redirect("/?task_deleted=true");
 }
 
-// TODO: edit task - mark completed use this? Or different function?
 export async function updateTaskAction(formData) {
   const id = formData.get("id");
 
@@ -96,7 +95,6 @@ export async function updateTaskAction(formData) {
       duedate: duedate,
       complete: complete,
     });
-    console.log("Task updated:", id);
 
     revalidatePath("/");
     revalidatePath(`/tasks/${id}`);
@@ -107,4 +105,23 @@ export async function updateTaskAction(formData) {
     };
   }
   redirect(`/tasks/${id}?task_updated=true`);
+}
+
+export async function toggleTaskCompleteAction(taskId, complete) {
+  try {
+    const taskRef = doc(tasksCollection, taskId);
+    await updateDoc(taskRef, {
+      complete: complete,
+    });
+    revalidatePath("/");
+    return {
+      success: true,
+      error: "",
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: error,
+    };
+  }
 }
