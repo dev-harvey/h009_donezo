@@ -26,7 +26,6 @@ export async function getTasks() {
   const querySnapshot = await getDocs(tasksCollection);
   const tasks = [];
 
-  // TODO: change this to a .map instead, better practice
   querySnapshot.forEach((task) => {
     let newTask = {
       id: task.id,
