@@ -1,5 +1,6 @@
 import ThemeRegistry from "@/components/ThemeRegistry";
 import HeaderToolbar from "@/components/HeaderToolbar";
+import NextTopLoader from "nextjs-toploader";
 
 export const metadata = {
   title: "Donezo",
@@ -19,6 +20,11 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <ThemeRegistry>
+          <NextTopLoader 
+            color="#ffffff"
+            height={3}
+            showSpinner={false}
+          />
           <HeaderToolbar />
           {children}
         </ThemeRegistry>
