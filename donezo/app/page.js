@@ -17,18 +17,11 @@ export default async function Home() {
           container
           spacing={2}
         >
-          <Grid size={3}>
+          {/* <Grid size={3}>
             <Sidebar />
-          </Grid>
-          <Grid size={9}>
-            {/* TODO: Add settings bar for sorting and adding tasks. Maybe inside TasksList? */}
-            <Button
-              variant="contained"
-              sx={{ mb: 2 }}
-              href="/tasks/add"
-            >
-              Add task
-            </Button>
+          </Grid> */}
+          {/* <Grid size={9}> */}
+          <Grid size={12}>
             <TasksList tasks={tasks} />
             <TaskSnackbar
               paramName="task_added"
