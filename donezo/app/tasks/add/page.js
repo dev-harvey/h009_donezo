@@ -1,4 +1,5 @@
 import TaskForm from "@/components/TaskForm";
+import TaskOverviewButton from "@/components/TaskOverviewButton";
 import { Container, Typography } from "@mui/material";
 
 export const metadata = {
@@ -12,7 +13,13 @@ export default function AddTaskPage() {
       fixed
       sx={{ p: 2 }}
     >
-      <Typography variant="h1" sx={{ mb: 2 }}>Add new task</Typography>
+      <TaskOverviewButton />
+      <Typography
+        variant="h1"
+        sx={{ mb: 2 }}
+      >
+        Add new task
+      </Typography>
       <TaskForm />
     </Container>
   );

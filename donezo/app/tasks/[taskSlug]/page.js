@@ -1,4 +1,5 @@
 import TaskDetails from "@/components/TaskDetails";
+import TaskOverviewButton from "@/components/TaskOverviewButton";
 import TaskSnackbar from "@/components/TaskSnackbar";
 import { getTask } from "@/lib/db";
 import { Container } from "@mui/material";
@@ -26,6 +27,7 @@ export default async function TaskDetailsPage({ params }) {
         paramName="task_updated"
         message="Task updated successfully!"
       />
+      <TaskOverviewButton />
       <TaskDetails taskDetails={taskDetails} />
     </Container>
   );

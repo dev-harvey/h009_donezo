@@ -1,6 +1,6 @@
 "use client";
 
-import { Alert, Button, Checkbox, FormControlLabel, Stack, TextField  } from "@mui/material";
+import { Alert, Box, Button, Checkbox, CircularProgress, FormControlLabel, Stack, TextField  } from "@mui/material";
 
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
@@ -9,11 +9,13 @@ import { DateTimePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 
 import { addTaskAction, updateTaskAction } from "@/lib/actions";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 import { DATETIME_FORMAT } from "@/lib/constants";
 
 export default function TaskForm({ initialData }) {
+  const [ isMounted, setIsMounted ] = useState(false);
+  
   const [title, setTitle] = useState(initialData?.title || "");
   const [description, setDescription] = useState(initialData?.description || "");
   const [duedate, setDuedate] = useState(() => {
@@ -21,12 +23,14 @@ export default function TaskForm({ initialData }) {
     const date = initialData.duedate.toDate ? initialData.duedate.toDate() : initialData.duedate;
     return dayjs(date);
   });
-
   const [complete, setComplete] = useState(initialData?.complete || false);
-
   const [errors, setErrors] = useState(null);
 
   const [isPending, startTransition] = useTransition();
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, [isMounted]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -53,6 +57,10 @@ export default function TaskForm({ initialData }) {
         setErrors(response.errors);
       }
     });
+  }
+
+  if (!isMounted) {
+    return <Box sx={{textAlign: "center", py:2}} ><CircularProgress size={100} /></Box>
   }
 
   return (

@@ -1,4 +1,4 @@
-import { Box, Checkbox, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import DeleteTaskButton from "./DeleteTaskButton";
 import Link from "next/link";
@@ -7,7 +7,7 @@ import TaskDetailsCompleteCheckbox from "./TaskDetailsCompleteCheckbox";
 
 export default function TaskDetails({ taskDetails }) {
   return (
-    <Box sx={{ p: 2, border: "1px solid white" }}>
+    <>
       <Stack
         spacing={1}
         sx={{ mb: 1 }}
@@ -33,6 +33,6 @@ export default function TaskDetails({ taskDetails }) {
         </Button>
         <DeleteTaskButton taskId={taskDetails.id} />
       </Stack>
-    </Box>
+    </>
   );
 }

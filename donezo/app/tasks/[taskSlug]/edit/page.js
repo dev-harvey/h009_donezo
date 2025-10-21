@@ -1,6 +1,6 @@
 import TaskForm from "@/components/TaskForm";
 import { getTask } from "@/lib/db";
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 
 export const metadata = {
   title: "Edit Task - Donezo",
@@ -16,6 +16,7 @@ export default async function EditTaskPage({ params }) {
       fixed
       sx={{ p: 2 }}
     >
+      <Typography variant="h1" sx={{ mb: 2 }}>Edit task</Typography>
       <TaskForm initialData={taskDetails} />
     </Container>
   );
