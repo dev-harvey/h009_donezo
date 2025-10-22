@@ -15,7 +15,7 @@ export default function TaskSnackbar({ paramName, message }) {
       url.searchParams.delete(paramName);
       window.history.replaceState({}, '', url);
     }
-  }, [searchParams]);
+  }, [searchParams, paramName]);
 
   return (
     <Snackbar

@@ -77,7 +77,7 @@ export default function TasksList({ tasks }) {
         spacing={0.5}
         sx={{ mb: 2 }}
       >
-        {incompleteTasks.length === 0 && <Typography variant="h6">You don't have any incomplete tasks.</Typography>}
+        {incompleteTasks.length === 0 && <Typography variant="h6">You don&apos;t have any incomplete tasks.</Typography>}
         {incompleteTasks.map((task) => (
           <TaskItem
             key={task.id}
